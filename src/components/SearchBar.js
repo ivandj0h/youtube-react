@@ -1,12 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
+import { Paper, TextField } from "@material-ui/core";
 
-class SearchBar extends React.Component {
-  state = {
-    seaacrhTerm: "",
+export default ({ onSubmit }) => {
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleChange = (event) => setSearchTerm(event.target.value);
+
+  const onKeyPress = (event) => {
+    if (event.key === "Enter") {
+      onSubmit(searchTerm);
+    }
   };
-  render() {
-    return <h3>Search Bar</h3>;
-  }
-}
 
-export default SearchBar;
+  return (
+    <Paper elevation={6} style={{ padding: "25px" }}>
+      <TextField
+        fullWidth
+        label="Search..."
+        value={searchTerm}
+        onChange={handleChange}
+        onKeyPress={onKeyPress}
+      />
+    </Paper>
+  );
+};
